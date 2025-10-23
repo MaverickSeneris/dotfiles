@@ -9,33 +9,13 @@ source ~/.local/share/omarchy/default/bash/rc
 #export PATH="$HOME/.cargo/bin:$PATH"
 #alias s='python3 ~/.cli_ai_assistant/launcher.py'
 
-fastfetch
-
-
 # ==============================
 # 🌤️ DYNAMIC WELCOME MESSAGE
 # ==============================
-hour=$(date +%H)
-user=$USER
 
-if [ $hour -ge 5 ] && [ $hour -lt 11 ]; then
-    icon="🌅"
-    greet="Good morning"
-elif [ $hour -ge 11 ] && [ $hour -lt 17 ]; then
-    icon="☀️"
-    greet="Good afternoon"
-elif [ $hour -ge 17 ] && [ $hour -lt 20 ]; then
-    icon="🌇"
-    greet="Good evening"
-else
-    icon="🌙"
-    greet="Good night"
-fi
-
-echo -e "\e[1;36m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\e[0m"
-echo -e " $icon  $greet, $user!"
-echo -e " 💡  Run \e[1;33mbp list\e[0m to view available command prompts, or \e[1;33mcheat\e[0m for a basic Bash cheat sheet."
-echo -e "\e[1;36m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\e[0m"
+# 🕒 Minimal Dynamic Greeting
+hourmin=$(date +"%H:%M")
+echo -e "It's $hourmin, run \e[1;33mbp list\e[0m or \e[1;33mcmd-list\e[0m."
 
 #######################
 ## EDIT BASH PROMPTS ##
@@ -231,10 +211,8 @@ fi
 # ==============================
 
 # 📘 BASIC BASH CHEAT SHEET
-cheat() {
-    echo -e "\e[1;36m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\e[0m"
+cmd-list() {
     echo -e " 🧠  \e[1;33mBasic Bash Command Cheat Sheet\e[0m"
-    echo -e "\e[1;36m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\e[0m"
 
     echo -e "\e[1;32mNavigation:\e[0m"
     echo -e "  \e[1;33mcd [dir]\e[0m           – change directory"
