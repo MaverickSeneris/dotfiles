@@ -1,0 +1,70 @@
+
+{
+  "layer": "top",
+  "position": "top",
+  "height": 24,
+
+  "modules-left": ["hyprland/workspaces"],
+  "modules-center": [],
+  "modules-right": [
+    "cpu",
+    "temperature",
+    "memory",
+    "disk",
+    "network",
+    "pulseaudio",
+    "backlight",
+    "battery",
+    "clock"
+  ],
+
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "show-empty": false,
+    "active-only": false,
+    "all-outputs": false
+  },
+
+  "cpu": {
+    "format": "| {usage:>2}%",
+    "tooltip": true
+  },
+  
+"temperature": {
+  "hwmon-path": "/sys/class/hwmon/hwmon3/temp1_input",
+  "format": "| {temperatureC}°C",
+  "critical-threshold": 80,
+  "tooltip": false
+},
+
+  "memory": {
+    "format": "|  {percentage:>2}%",
+    "tooltip": true
+  },
+  "disk": {
+    "path": "/",
+    "format": "| 󰋊{percentage_used:>2}%",
+    "tooltip": true
+  },
+  "network": {
+    "format-wifi": "|  {signalStrength:>2}%",
+    "format-ethernet": "|  ETH",
+    "format-disconnected": "|  NoNet"
+  },
+  "pulseaudio": {
+    "format": "|  {volume:>2}%",
+    "format-muted": "| mute"
+  },
+  "backlight": {
+    "format": "|  {percent:>2}%"
+  },
+  "battery": {
+    "format": "|  {capacity:>2}%",
+    "format-charging": "| {capacity:>2}%",
+    "critical-threshold": 15
+  },
+  "clock": {
+    "format": "|  {:%a%d %H:%M} "
+  }
+}
+

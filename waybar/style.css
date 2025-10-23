@@ -1,0 +1,60 @@
+@import "../omarchy/current/theme/waybar.css";
+
+/* Catppuccin Mocha Blue Style */
+* {
+  font-family: JetBrainsMono Nerd Font;
+  font-size: 18px;
+  color: @foreground;
+  /* Blue accent */
+  background: @background;
+  /* Mocha base */
+}
+
+#waybar {
+  border-bottom: 1px solid #45475a;
+  padding: 4px 8px;
+}
+
+#clock,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#network,
+#pulseaudio,
+#backlight,
+#battery,
+#workspaces {
+  padding: 0 6px;
+}
+
+#workspaces {
+  margin-left: 4px;
+}
+
+#workspaces button {
+  color: #89b4fa;
+  background: transparent;
+  padding: 3px 4px;
+  transition: color 0.2s;
+}
+
+#workspaces button.active {
+  color: #f5c2e7;
+  /* Pink for active workspace */
+}
+
+#workspaces button:hover {
+  color: #b4befe;
+  /* Lighter blue hover */
+}
+
+#battery.critical,
+#temperature.critical {
+  color: #f38ba8;
+  /* Red for warnings */
+}
+
+#pulseaudio.muted {
+  color: #585b70;
+}
