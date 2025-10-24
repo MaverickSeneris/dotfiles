@@ -24,7 +24,7 @@
 #pulseaudio,
 #backlight,
 #battery,
-#workspaces {
+#workspaces, #logo {
   padding: 0 6px;
 }
 
