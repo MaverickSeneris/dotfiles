@@ -17,11 +17,13 @@
     //"custom/gpu_temp",
     "memory",
     "disk",
-    "network#info",
-    "pulseaudio",
+    "pulseaudio#input",
+    "pulseaudio#output",
     "backlight",
     "custom/battery",
-    "clock"
+    "network#info",
+    "clock",
+    "custom/weather"
   ],
 
   "hyprland/workspaces": {
@@ -75,26 +77,66 @@
      "tooltip-format-wifi": "{ifname}\n{essid}\n{signalStrength}% \n{frequency} GHz\n󰇚 {bandwidthDownBits}\n󰕒 {bandwidthUpBits}",
      "tooltip-format-ethernet": "{ifname}\n󰇚 {bandwidthDownBits} \n󰕒 {bandwidthUpBits}",
      "on-click": "iwgtk& aplay ~/.config/sounds/interact.wav",
-     "format-icons": ["|󰤫", "|󰤟", "|󰤢", "|󰤥", "|󰤨"],
+     "format-icons": ["|󰤫","|󰤟","|󰤢","|󰤥","|󰤨"],
      "states": {
      "normal": 25
     }
   },
-  "pulseaudio": {
-    "format": "| {volume:>2}%",
-    "format-muted": "| mute"
-  },
-  "backlight": {
-    "format": "| {percent:>2}%"
-  },
+    "pulseaudio#output": {
+      "format": "{icon} {volume}%",
+      "format-bluetooth": "{icon} {volume}%",
+      "format-source-muted": "{volume}",
+      "format-icons": {
+        "headphone": "",
+        "hands-free": "",
+        "headset": "",
+        "phone": "",
+        "portable": "",
+        "car": "",
+        "default": ["", ""]
+      },
+      "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+      "on-click-right": "pwvucontrol & aplay ~/.config/sounds/interact.wav",
+      "tooltip": true,
+      "scroll-step": 2
+    },
+
+    "pulseaudio#input": {
+      "format": "| {format_source}%",
+      "format-source": "{volume}",
+      "format-source-muted": "{volume}",
+      "on-scroll-up": "sh -c 'vol=$(pactl get-source-volume @DEFAULT_SOURCE@ | grep -oP \"\\d+(?=%)\" | head -1); if [ \"$vol\" -lt 100 ]; then pactl set-source-volume @DEFAULT_SOURCE@ +2%; else pactl set-source-volume @DEFAULT_SOURCE@ 100%; fi'",
+      "on-scroll-down": "pactl set-source-volume @DEFAULT_SOURCE@ -2%",
+      "max-volume": "100",
+      "on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
+      "on-click-right": "pwvucontrol & aplay ~/.config/sounds/interact.wav",
+      "tooltip-format": "{source_desc}"
+    },
+    "backlight": {
+      "format": "| {percent:>2}%"
+    },
+    
     "custom/battery": {
-    "exec": "~/.config/waybar/scripts/battery.sh",
-    "interval": 5,
-    "return-type": "json"
-  },
-  "clock": {
-    "format": "|  {:%d %H:%M} "
-  },
+      "exec": "~/.config/waybar/scripts/battery.sh",
+      "interval": 5,
+      "return-type": "json",
+      "states": {
+        "warning": 25,
+        "critical": 20
+      }
+    },
+    
+    "clock": {
+      "format": "| {:%d %H:%M}"
+    },
+    "custom/weather": {
+    "exec": "wttrbar --nerd --location 'Rizal, Laguna'",
+    "return-type": "json",
+    "interval": 600,
+    "tooltip": true,
+    "format": "{} "
+},
+
   "custom/logo": {
     "format": " 󰣇 |",
     "on-click": "alacritty -e bash -c 'fastfetch; exec bash'",

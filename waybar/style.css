@@ -58,3 +58,55 @@
 #pulseaudio.muted {
   color: #585b70;
 }
+
+
+
+/* === Battery Styling (Final Fixed) === */
+
+/* Charging = mint */
+#custom-battery.charging {
+  color: #94e2d5; /* mint */
+}
+
+/* Charging 90%+ = blinking green */
+#custom-battery.charging-full {
+  color: #a6e3a1; /* green */
+  animation-name: flash-charging;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+/* 50% and below = orange */
+#custom-battery.mid {
+  color: #fab387; /* orange */
+}
+
+/* 25% and below = red */
+#custom-battery.warning {
+  color: #f38ba8; /* red */
+}
+
+/* 20% and below = blinking red */
+#custom-battery.critical {
+  color: #f38ba8; /* red */
+  animation-name: flash-battery;
+  animation-duration: 1s;
+  animation-timing-function: steps(2, start);
+  animation-iteration-count: infinite;
+}
+
+/* Flashing animations (Waybar/GTK safe) */
+@keyframes flash-battery {
+  0% { color: #f38ba8; }
+  50% { color: #000000; }
+  100% { color: #f38ba8; }
+}
+
+@keyframes flash-charging {
+  0% { color: #a6e3a1; }
+  50% { color: #c3fcae; }
+  100% { color: #a6e3a1; }
+}
+
