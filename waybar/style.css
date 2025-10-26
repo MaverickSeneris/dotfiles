@@ -65,7 +65,7 @@
 
 /* Charging = green */
 #custom-battery.charging-full {
-  color: #a6e3a1; /* green */
+  color: #9fe2bf; /* mint */
 }
 
 /* Charging 90%+ = blinking green */
