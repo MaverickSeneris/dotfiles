@@ -1,11 +1,14 @@
 
 #!/bin/bash
-capacity=$(cat /sys/class/power_supply/BAT0/capacity)
+
+capacity=$(upower -i $(upower -e | grep BAT) | awk '/percentage:/ {gsub("%",""); printf("%.0f", $2)}')
 status=$(cat /sys/class/power_supply/BAT0/status)
+health=$(upower -i $(upower -e | grep BAT) | awk '/capacity:/ {gsub("%",""); printf("%.0f", $2)}')
+cycles=$(upower -i $(upower -e | grep BAT) | awk '/charge-cycles:/ {print $2}')
 
 if [ "$status" == "Charging" ]; then
   # Granular charging icons
-  if   [ "$capacity" -ge 100 ]; then icon=" 󰂅 "  # charging full
+  if   [ "$capacity" -ge 100 ]; then icon=" 󰂄"  # charging full
   elif [ "$capacity" -ge 90 ]; then icon=" 󰂉 "
   elif [ "$capacity" -ge 75 ]; then icon=" 󰂉 "
   elif [ "$capacity" -ge 60 ]; then icon=" 󰂇 "
@@ -16,7 +19,7 @@ if [ "$status" == "Charging" ]; then
   fi
 
   # Keep your states
-  if [ "$capacity" -ge 90 ]; then
+  if [ "$capacity" -ge 95 ]; then
     state="charging-full"   # solid green
   else
     state="charging"        # blinking orange
@@ -44,8 +47,11 @@ else
     state="normal"
   fi
 fi
+# Tooltip (escaped for JSON — must use double backslash for Waybar)
+tooltip="Battery Health: ${health}%\\nCharge Cycles: ${cycles}\\nState: ${status^}"
 
-echo "{\"text\": \"$icon$capacity%\", \"class\": \"$state\"}"
+# Final JSON output
+echo "{\"text\": \"$icon$capacity%\", \"tooltip\": \"$tooltip\", \"class\": \"$state\"}"
 
 
 #󰁺 󰁻 󰁼 󰁽 󰁾 󰁿 󰂀 󰂁 󰂂 󰂃 󰂄 󰂅 󰂆 󰂇 󰂈 󰂉
