@@ -36,7 +36,9 @@ alias el='nvim ~/.local' # edit .local dotfiles
 # Show all commands ever typed
 alias history='cat ~/.bash_history' # list command history
 # 'cpp' shows progress when copying files
-alias cpp='rsync -ah --progress' # copy files with progress interface
+alias cpp='rsync -ah --progress' # copy files with progress interfaceal
+# hyprland bindings
+alias binds='cat ~/.config/hypr/bindings.conf' # See keybindings
 
 #################
 ## SAFE REMOVE ##
