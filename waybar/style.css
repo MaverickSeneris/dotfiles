@@ -63,14 +63,14 @@
 
 /* === Battery Styling (Final Fixed) === */
 
-/* Charging = mint */
-#custom-battery.charging {
-  color: #94e2d5; /* mint */
+/* Charging = green */
+#custom-battery.charging-full {
+  color: #a6e3a1; /* green */
 }
 
 /* Charging 90%+ = blinking green */
-#custom-battery.charging-full {
-  color: #a6e3a1; /* green */
+#custom-battery.charging {
+  color: #fab387; /* green */
   animation-name: flash-charging;
   animation-duration: 1.5s;
   animation-timing-function: ease-in-out;
@@ -104,9 +104,16 @@
   100% { color: #f38ba8; }
 }
 
+
 @keyframes flash-charging {
+  0% { color: #fab387; }   /* soft orange */
+  50% { color: #f9e2af; }  /* lighter amber glow */
+  100% { color: #fab387; } /* back to soft orange */
+}
+
+/*@keyframes flash-charging {
   0% { color: #a6e3a1; }
   50% { color: #c3fcae; }
   100% { color: #a6e3a1; }
-}
+}*/
 

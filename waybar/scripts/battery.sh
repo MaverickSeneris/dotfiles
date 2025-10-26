@@ -4,21 +4,34 @@ capacity=$(cat /sys/class/power_supply/BAT0/capacity)
 status=$(cat /sys/class/power_supply/BAT0/status)
 
 if [ "$status" == "Charging" ]; then
-  icon=" "
-  if [ "$capacity" -ge 90 ]; then
-    state="charging-full"   # blinking green
-  else
-    state="charging"        # solid mint
+  # Granular charging icons
+  if   [ "$capacity" -ge 100 ]; then icon=" 󰂅 "  # charging full
+  elif [ "$capacity" -ge 90 ]; then icon=" 󰂉 "
+  elif [ "$capacity" -ge 75 ]; then icon=" 󰂉 "
+  elif [ "$capacity" -ge 60 ]; then icon=" 󰂇 "
+  elif [ "$capacity" -ge 50 ]; then icon=" 󰂇 "
+  elif [ "$capacity" -ge 40 ]; then icon=" 󰂇 "
+  elif [ "$capacity" -ge 30 ]; then icon=" 󰂇 "
+  else icon="  󰂆"
   fi
+
+  # Keep your states
+  if [ "$capacity" -ge 90 ]; then
+    state="charging-full"   # solid green
+  else
+    state="charging"        # blinking orange
+  fi
+
 else
-  if   [ "$capacity" -ge 95 ]; then icon=" 󰁹"
-  elif [ "$capacity" -ge 80 ]; then icon=" 󰂁"
+  if   [ "$capacity" -ge 100 ]; then icon=" 󰁹"
+  elif [ "$capacity" -ge 95 ]; then icon=" 󰂁"
+  elif [ "$capacity" -ge 80 ]; then icon=" 󰂀"
   elif [ "$capacity" -ge 50 ]; then icon=" 󰁿"
   elif [ "$capacity" -ge 40 ]; then icon=" 󰁾"
   elif [ "$capacity" -ge 30 ]; then icon=" 󰁽"
-  elif [ "$capacity" -ge 25 ]; then icon=" 󰁼"
-  elif [ "$capacity" -ge 20 ]; then icon=" 󰂎"
-  else icon=" "
+  elif [ "$capacity" -ge 25 ]; then icon=" 󰁻"
+  elif [ "$capacity" -ge 20 ]; then icon=" 󰂃"
+  else icon=" 󰂃"
   fi
 
   if [ "$capacity" -le 20 ]; then
@@ -33,4 +46,7 @@ else
 fi
 
 echo "{\"text\": \"$icon$capacity%\", \"class\": \"$state\"}"
+
+
+#󰁺 󰁻 󰁼 󰁽 󰁾 󰁿 󰂀 󰂁 󰂂 󰂃 󰂄 󰂅 󰂆 󰂇 󰂈 󰂉
 
