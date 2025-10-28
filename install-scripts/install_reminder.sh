@@ -139,4 +139,53 @@ case "$1" in
         echo "Usage:"
         echo "  reminder add \"<message>\" <interval>"
         echo "      → Create a new reminder that repeats every interval."
-        echo "        Ex
+        echo "        Example: reminder add \"💧 Drink Water\" 1h"
+        echo ""
+        echo "  reminder list"
+        echo "      → Show all active reminder timers."
+        echo ""
+        echo "  reminder toggle \"<message>\""
+        echo "      → Pause or resume a reminder."
+        echo ""
+        echo "  reminder delete \"<message>\""
+        echo "      → Remove a reminder completely."
+        echo ""
+        echo "🧩 Supported intervals:"
+        echo "   30s   = every 30 seconds"
+        echo "   10m   = every 10 minutes"
+        echo "   1h    = every 1 hour"
+        echo "   1h30m = every 1 hour 30 minutes"
+        echo "   1d    = every 1 day"
+        echo ""
+        echo "💡 Tip: Use emojis or short phrases for names!"
+        echo "   Example: reminder add \"🙏 Pray\" 6h"
+        echo ""
+        ;;
+    *)
+        echo "Usage: reminder [add|list|delete|toggle|help]"
+        echo "Type 'reminder help' for detailed commands."
+        ;;
+esac
+EOF
+
+chmod +x "$SCRIPT_PATH"
+
+# --- Create alias if missing ---
+if ! grep -q "alias reminder=" "$HOME/.bashrc" 2>/dev/null; then
+    echo 'alias reminder="$HOME/.local/bin/mako_reminder.sh"' >> "$HOME/.bashrc"
+    echo "✅ Alias 'reminder' added to .bashrc"
+fi
+
+# --- Test Mako Notification ---
+export XDG_RUNTIME_DIR="/run/user/$(id -u)"
+export DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus"
+export DISPLAY=":0"
+
+notify-send "✅ Mako Reminder Installed" "You're all set, Mav! Type 'reminder help' to get started." || {
+    echo "⚠️ Warning: Could not display test notification. Make sure mako is running."
+}
+
+echo ""
+echo "✅ Installation complete!"
+echo "Run: source ~/.bashrc"
+echo "Then try: reminder help"
