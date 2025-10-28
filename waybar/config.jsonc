@@ -1,12 +1,13 @@
-
 {
   "layer": "top",
   "position": "top",
   "height": 24,
 
   "modules-left": [
-    "custom/logo", 
-    "hyprland/workspaces", 
+    //"custom/logo",
+    "group/tray-expander",
+    "custom/divider",
+    "hyprland/workspaces",
     "hyprland/window"
   ],
   "modules-center": [],
@@ -34,10 +35,10 @@
   },
 
   "cpu": {
-    "format": "| {usage:>2}%",
+    "format": "│ {usage:>2}%",
     "tooltip": true
   },
-  
+
   "temperature": {
     "hwmon-path": "/sys/class/hwmon/hwmon3/temp1_input",
     "format": "{temperatureC}°C",
@@ -45,12 +46,12 @@
     "tooltip": false
   },
 
-"custom/gpu": {
-  "format":"|󰾲 {}",
+  "custom/gpu": {
+    "format": "│󰾲 {}",
     "exec": "~/gpu_usage.sh",
     "interval": 5,
     "tooltip": false
-},
+  },
 
   "custom/gpu_temp": {
     "format": " {}°C",
@@ -59,97 +60,124 @@
   },
 
   "memory": {
-    "format": "| {percentage:>2}%",
+    "format": "│ {percentage:>2}%",
     "tooltip": true
   },
   "disk": {
     "path": "/",
-    "format": "| {percentage_used:>2}%",
+    "format": "│ {percentage_used:>2}%",
     "tooltip": true
   },
   "network#info": {
-     "interval": 2,
-     "format": "󱘖  Offline",
-     "format-wifi": "{icon} {bandwidthDownBits}",
-     "format-ethernet": "󰈀 {bandwidthDownBits}",
-     "min-length": 11,
-     "tooltip": "{}",
-     "tooltip-format-wifi": "{ifname}\n{essid}\n{signalStrength}% \n{frequency} GHz\n󰇚 {bandwidthDownBits}\n󰕒 {bandwidthUpBits}",
-     "tooltip-format-ethernet": "{ifname}\n󰇚 {bandwidthDownBits} \n󰕒 {bandwidthUpBits}",
-     "on-click": "iwgtk& aplay ~/.config/sounds/interact.wav",
-     "format-icons": ["|󰤫","|󰤟","|󰤢","|󰤥","|󰤨"],
-     "states": {
-     "normal": 25
+    "interval": 2,
+    "format": "󱘖  Offline",
+    "format-wifi": "{icon} {bandwidthDownBits}",
+    "format-ethernet": "󰈀 {bandwidthDownBits}",
+    "min-length": 11,
+    "tooltip": "{}",
+    "tooltip-format-wifi": "{ifname}\n{essid}\n{signalStrength}% \n{frequency} GHz\n󰇚 {bandwidthDownBits}\n󰕒 {bandwidthUpBits}",
+    "tooltip-format-ethernet": "{ifname}\n󰇚 {bandwidthDownBits} \n󰕒 {bandwidthUpBits}",
+    "on-click": "iwgtk& aplay ~/.config/sounds/interact.wav",
+    "format-icons": ["│󰤫","│󰤟","│󰤢","│󰤥","│󰤨"],
+    "states": {
+      "normal": 25
     }
   },
-    "pulseaudio#output": {
-      "format": "{icon} {volume}%",
-      "format-bluetooth": "{icon} {volume}%",
-      "format-source-muted": "{volume}",
-      "format-icons": {
-        "headphone": "",
-        "hands-free": "",
-        "headset": "",
-        "phone": "",
-        "portable": "",
-        "car": "",
-        "default": ["", ""]
-      },
-      "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
-      "on-click-right": "pwvucontrol & aplay ~/.config/sounds/interact.wav",
-      "tooltip": true,
-      "scroll-step": 2
+  "pulseaudio#output": {
+    "format": "{icon} {volume}%",
+    "format-bluetooth": "{icon} {volume}%",
+    "format-source-muted": "{volume}",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": ["", ""]
     },
+    "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+    "on-click-right": "pwvucontrol & aplay ~/.config/sounds/interact.wav",
+    "tooltip": true,
+    "scroll-step": 2
+  },
 
-    "pulseaudio#input": {
-      "format": "| {format_source}%",
-      "format-source": "{volume}",
-      "format-source-muted": "{volume}",
-      "on-scroll-up": "sh -c 'vol=$(pactl get-source-volume @DEFAULT_SOURCE@ | grep -oP \"\\d+(?=%)\" | head -1); if [ \"$vol\" -lt 100 ]; then pactl set-source-volume @DEFAULT_SOURCE@ +2%; else pactl set-source-volume @DEFAULT_SOURCE@ 100%; fi'",
-      "on-scroll-down": "pactl set-source-volume @DEFAULT_SOURCE@ -2%",
-      "max-volume": "100",
-      "on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
-      "on-click-right": "pwvucontrol & aplay ~/.config/sounds/interact.wav",
-      "tooltip-format": "{source_desc}"
-    },
-    "backlight": {
-      "format": "| {percent:>2}%"
-    },
-    
-    "custom/battery": {
-      "exec": "~/.config/waybar/scripts/battery.sh",
-      "interval": 5,
-      "return-type": "json",
-      "states": {
-        "warning": 25,
-        "critical": 20
-      }
-    },
-    
-    "clock": {
-      "format": "| {:%d %H:%M}"
-    },
-    "custom/weather": {
+  "pulseaudio#input": {
+    "format": "│ {format_source}%",
+    "format-source": "{volume}",
+    "format-source-muted": "{volume}",
+    "on-scroll-up": "sh -c 'vol=$(pactl get-source-volume @DEFAULT_SOURCE@ | grep -oP \"\\d+(?=%)\" | head -1); if [ \"$vol\" -lt 100 ]; then pactl set-source-volume @DEFAULT_SOURCE@ +2%; else pactl set-source-volume @DEFAULT_SOURCE@ 100%; fi'",
+    "on-scroll-down": "pactl set-source-volume @DEFAULT_SOURCE@ -2%",
+    "max-volume": "100",
+    "on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
+    "on-click-right": "pwvucontrol & aplay ~/.config/sounds/interact.wav",
+    "tooltip-format": "{source_desc}"
+  },
+  "backlight": {
+    "format": "│ {percent:>2}%"
+  },
+
+  "custom/battery": {
+    "exec": "~/.config/waybar/scripts/battery.sh",
+    "interval": 5,
+    "return-type": "json",
+    "states": {
+      "warning": 25,
+      "critical": 20
+    }
+  },
+
+  "clock": {
+    "format": "│ {:%d %H:%M}"
+  },
+  "custom/weather": {
     "exec": "wttrbar --nerd --location 'Rizal, Laguna'",
     "return-type": "json",
     "interval": 600,
     "tooltip": true,
     "format": "{} "
-},
+  },
 
   "custom/logo": {
-    "format": " 󰣇 |",
+    "format": " 󰣇 │",
     "on-click": "alacritty -e bash -c 'fastfetch; exec bash'",
     "tooltip": false
   },
-  
-  "hyprland/window": {
-      "format": "{title}",
-      "max-length": 48,
-      "tooltip": false,
-      "icon": true,
-      "icon-size": 18,
-      "tooltip": true
-    }
-}
 
+  "hyprland/window": {
+    "format": "{title}",
+    "max-length": 48,
+    "tooltip": false,
+    "icon": true,
+    "icon-size": 18,
+    "tooltip": true
+  },
+  "group/tray-expander": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 600,
+      "children-class": "tray-group-item"
+    },
+    "modules": ["custom/expand-icon", "tray"]
+  },
+  "custom/expand-icon": {
+    "format": " 󰣇 ",
+    "tooltip": false
+  },
+
+  "custom/divider": {
+    "exec": "echo ' │'",
+    "interval": 3600,
+    "format": "{}"
+  },
+  "custom/screenrecording-indicator": {
+    "on-click": "omarchy-cmd-screenrecord",
+    "exec": "$OMARCHY_PATH/default/waybar/indicators/screen-recording.sh",
+    "signal": 8,
+    "return-type": "json"
+  },
+  "tray": {
+    "icon-size": 12,
+    "spacing": 17
+  }
+}
