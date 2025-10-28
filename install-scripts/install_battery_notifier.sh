@@ -8,6 +8,21 @@ set -e
 
 echo "⚙️ Setting up Battery Notifier..."
 
+# --- Check for mako (notification daemon) ---
+if ! command -v mako >/dev/null 2>&1; then
+    echo "🔔 'mako' not found. Installing..."
+    if command -v pacman >/dev/null 2>&1; then
+        sudo pacman -S --noconfirm mako
+    elif command -v yay >/dev/null 2>&1; then
+        yay -S --noconfirm mako
+    else
+        echo "❌ No package manager found (pacman/yay). Please install mako manually."
+        exit 1
+    fi
+else
+    echo "✅ Mako is already installed."
+fi
+
 # --- Paths ---
 BIN_DIR="$HOME/.local/bin"
 SYSTEMD_DIR="$HOME/.config/systemd/user"
