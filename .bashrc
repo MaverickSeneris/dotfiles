@@ -24,9 +24,19 @@ echo -e "It's $hourmin, run \e[1;33mbp list\e[0m or \e[1;33mcmd-list\e[0m."
 ## EDIT BASH PROMPTS ##
 #######################
 # go to home directory
-alias home='cd ~ && clear' # navigate to home directory
+alias home='cd ~ && clear && ls -la' # navigate to home directory
 # go to root directory
 alias root='cd / && clear' # navigate to root directory
+# go to Projects directory
+alias projects='cd ~/Projects/ && clear && ls -la' # navigate and list Project directory
+# got to dotfiles directory
+alias dotfiles='cd ~/Projects/dotfiles/ && clear && ls -la' # navigate and list Projects directory
+# go to waybar directory
+alias wc='cd ~/.config/waybar && clear && ls -la' # navigate to wabar config files
+# go to hyprland directory
+alias hc='cd ~/.config/hypr/ && clear && ls -la' # navigate to hyprland config Files
+# list down all omarchy terminal commands
+alias otp='cd ~/.local/share/omarchy/bin && clear && ls -la'
 # edit bashrc prompts
 alias eb='nvim ~/.bashrc' # check in to bashrc config
 # edit bashrc prompts
