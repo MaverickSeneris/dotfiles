@@ -1,3 +1,6 @@
+# If not running interactively, don't do anything (leave this at the top of this file)
+[[ $- != *i* ]] && return
+
 # All the default Omarchy aliases and functions
 # (don't mess with these directly, just overwrite them here!)
 source ~/.local/share/omarchy/default/bash/rc
@@ -126,6 +129,10 @@ alias fm="watch -n1 sensors" # fan monitor
 
 # Battery Health Checker
 alias bh="upower -i \$(upower -e | grep BAT) | grep -E 'state|time to empty|time to full|percentage|capacity|energy|energy-full|energy-rate|voltage|cycle|model|serial'" # Get device battery status
+
+
+#Task Notifier
+alias reminder="$HOME/.local/bin/mako_reminder.sh" # Task notifier: run 'reminder help'
 
 ###############################
 ## DYNAMIC BASH PROMPTS HELP ##
@@ -274,14 +281,14 @@ cmd-list() {
 
 # Create backup of .bashrc to ~/Projects/dotfiles/bashrc
 backupbash() {
-    local backup_dir=~/Projects/dotfiles/bashrc
+    local backup_dir=~/Projects/dotfiles/
     local timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
     local backup_file="$backup_dir/.bashrc_backup_$timestamp"
 
     mkdir -p "$backup_dir"
 
     # Delete any previous backups
-    rm -f "$backup_dir"/.bashrc_backup_*
+    #rm -f "$backup_dir"/.bashrc_backup_*
 
     # Create new backup
     cp ~/.bashrc "$backup_file"

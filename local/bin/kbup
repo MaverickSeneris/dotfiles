@@ -1,0 +1,9 @@
+#!/bin/bash
+dev="/sys/class/leds/smc::kbd_backlight/brightness"
+max=$(cat /sys/class/leds/smc::kbd_backlight/max_brightness)
+current=$(cat $dev)
+step=$(( max / 10 ))
+new=$(( current + step ))
+[ $new -gt $max ] && new=$max
+echo $new | sudo tee $dev
+
