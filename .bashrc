@@ -354,3 +354,22 @@ exitdrive() {
     printf "\e[1;32m✅ You have left the Seneris vault and returned to base.\e[0m\n"
 }
 alias exitdrive=exitdrive
+
+
+familyunmount() {
+    DRIVE=$(find /run/media/$USER /media/$USER /mnt -maxdepth 2 -type d -name Seneris1TB 2>/dev/null | head -n 1)
+
+    if [ -n "$DRIVE" ]; then
+        # Get the mount path's parent device
+        DEV=$(mount | grep "$DRIVE" | awk '{print $1}')
+
+        if [ -n "$DEV" ]; then
+            sudo umount "$DEV" && echo "🛑 Drive Seneris1TB safely unmounted. Go in peace."
+        else
+            echo "⚠️ Could not determine the device. Is it already unmounted?"
+        fi
+    else
+        echo "⚠️ Seneris1TB not found. Nothing to unmount."
+    fi
+}
+alias familyunmount=familyunmount
