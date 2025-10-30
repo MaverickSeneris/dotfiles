@@ -1,0 +1,50 @@
+
+#!/usr/bin/env bash
+
+R="\033[0m"; B="\033[1m"; C="\033[36m"; Y="\033[33m"
+LINE="${C}------------------------------------------------------------${R}"
+
+echo -e "${C}${B}VIM BASIC CHEAT SHEET${R}"
+echo -e "$LINE"
+
+echo -e "${B}${C}Modes${R}"
+echo -e "  ${Y}Esc${R}        Normal"
+echo -e "  ${Y}i / a${R}     Insert / Append"
+echo -e "  ${Y}o / O${R}     New line below / above"
+echo -e "  ${Y}v / V${R}     Visual / Line visual"
+echo -e "  ${Y}Ctrl+v${R}    Block visual"
+
+echo -e "$LINE"
+echo -e "${B}${C}Movement${R}"
+echo -e "  ${Y}h j k l${R}   Left Down Up Right"
+echo -e "  ${Y}w / b${R}     Next / Prev word"
+echo -e "  ${Y}0 / \$${R}     Line start / end"
+echo -e "  ${Y}gg / G${R}    File top / bottom"
+echo -e "  ${Y}f<char>${R}   Find char on line"
+echo -e "  ${Y}/text${R}     Search"
+echo -e "  ${Y}n / N${R}     Next / Prev result"
+
+echo -e "$LINE"
+echo -e "${B}${C}Editing${R}"
+echo -e "  ${Y}x${R}        Delete char"
+echo -e "  ${Y}dw / cw${R}  Delete / Change word"
+echo -e "  ${Y}dd / yy${R}  Delete line / Yank line"
+echo -e "  ${Y}p${R}        Paste"
+echo -e "  ${Y}u / Ctrl+r${R} Undo / Redo"
+echo -e "  ${Y}.${R}        Repeat last change"
+
+echo -e "$LINE"
+echo -e "${B}${C}Visual Mode${R}"
+echo -e "  ${Y}> / <${R}     Indent / Outdent"
+echo -e "  ${Y}=${R}        Auto-indent"
+echo -e "  ${Y}d / y / c${R} Delete / Yank / Change"
+
+echo -e "$LINE"
+echo -e "${B}${C}Files / Buffers${R}"
+echo -e "  ${Y}:w / :q${R}   Save / Quit"
+echo -e "  ${Y}:wq / :q!${R} Save quit / Force quit"
+
+echo -e "$LINE"
+echo -e "${B}${C}Pro tip${R}"
+echo -e "  ${Y}verb + motion${R}  ex: ${Y}dw${R}=delete word, ${Y}d\$${R}=delete to EOL"
+echo -e "$LINE"

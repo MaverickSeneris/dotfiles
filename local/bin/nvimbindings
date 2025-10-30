@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+R="\033[0m"; B="\033[1m"; C="\033[36m"; Y="\033[33m"
+LINE="${C}------------------------------------------------------------${R}"
+
+echo -e "${C}${B}NEOVIM LSP & NAV CHEAT SHEET${R}"
+echo -e "$LINE"
+
+echo -e "${B}${C}LSP${R}"
+echo -e "  ${Y}K${R}          Hover docs"
+echo -e "  ${Y}gd / gD${R}    Go to definition / declaration"
+echo -e "  ${Y}gr / gi${R}    References / Implementation"
+echo -e "  ${Y}<leader>rn${R} Rename"
+echo -e "  ${Y}<leader>ca${R} Code actions"
+echo -e "  ${Y}<leader>f${R}  Format"
+echo -e "  ${Y}[d / ]d${R}   Prev / Next diagnostic"
+echo -e "  ${Y}<leader>q${R}  Diagnostic list"
+
+echo -e "$LINE"
+echo -e "${B}${C}Telescope${R}"
+echo -e "  ${Y}<leader>ff${R} Find files"
+echo -e "  ${Y}<leader>fg${R} Live grep"
+echo -e "  ${Y}<leader>fb${R} Buffers"
+echo -e "  ${Y}<leader>fh${R} Help"
+
+echo -e "$LINE"
+echo -e "${B}${C}Navigation${R}"
+echo -e "  ${Y}<leader><space>${R} Files"
+echo -e "  ${Y}<leader>,${R} Buffers"
+echo -e "  ${Y}<leader>e${R} File tree"
+echo -e "  ${Y}<leader>/${R} Project search"
+
+echo -e "$LINE"
+echo -e "${B}${C}Treesitter${R}"
+echo -e "  ${Y}:TSUpdate${R} Update parsers"
+
+echo -e "$LINE"
+echo -e "${B}${C}Format on save toggle${R}"
+echo -e "  ${Y}<leader>cf${R}"
+
+echo -e "$LINE"
