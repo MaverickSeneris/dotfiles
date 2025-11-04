@@ -97,3 +97,40 @@ call plug#end()
 set termguicolors
 set background=dark
 colorscheme gruvbox
+
+" Toggle netrw: if any netrw window exists, close it; else open it
+function! ToggleNetrw()
+  " Look through all windows for a netrw buffer
+  for w in range(1, winnr('$'))
+    let bnr = winbufnr(w)
+    if getbufvar(bnr, '&filetype') ==# 'netrw'
+      execute w . 'wincmd w'   " jump to that window
+      bd                       " close the netrw buffer/window
+      return
+    endif
+  endfor
+  " None found → open explorer (left sidebar version is nice)
+  Lexplore
+endfunction
+
+" Map Space+e to toggle
+nnoremap <leader>e :call ToggleNetrw()<CR>
+
+" Toggle terminal with <leader>/
+function! ToggleTerminal()
+  " Check if a terminal window already exists
+  for w in range(1, winnr('$'))
+    let bnr = winbufnr(w)
+    if getbufvar(bnr, '&buftype') ==# 'terminal'
+      execute w . 'wincmd w'   " jump to terminal window
+      bd                       " close it
+      return
+    endif
+  endfor
+
+  " No terminal found — open one
+  split | terminal
+endfunction
+
+nnoremap <leader>/ :call ToggleTerminal()<CR>
+
